@@ -1,3 +1,3 @@
 while (<>) {
-	print if //;
+	print if /\([^()]*\w+[^()]*\)/;
 }
