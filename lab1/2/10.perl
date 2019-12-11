@@ -1,4 +1,4 @@
 while (<>) {
-	s/(a.*?a)(a.*?a)(a.*?a)/bad/g;
+	s/(a.*?a){3}/bad/g;
 	print;
 }
