@@ -1,0 +1,1 @@
+( a or b ) and ( not ( a or b ) and c)

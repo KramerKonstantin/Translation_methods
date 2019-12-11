@@ -1,0 +1,47 @@
+1. Приоритет:
+    1) not
+    2) and
+    3) xor
+    4) or
+
+2. Построим грамматику:
+    S -> S or A
+    S -> A
+    A -> A xor B
+    A -> B
+    B -> C and B
+    B -> C
+    C -> not D
+    C -> D
+    D -> variable
+    D -> (S)
+
+    variable - переменная, состоящая из одной буквы
+    S - Логическая формула в стиле Паскаля
+
+3. В грамматике есть левая рекурсия. Устраним её. Получится грамматика:
+    S  -> A S'
+    S' -> or A S'
+    S' -> epsilon
+    A  -> B A'
+    A' -> xor B A'
+    A' -> epsilon
+    B  -> C B'
+    B' -> and C B'
+    B' -> epsilon
+    C  -> D
+    C  -> not D
+    D  -> variable
+    D  -> ( S )
+
+4. Построим множества FIRST и FOLLOW для нетерминалов нашей грамматики:
+
+Нетерминал: | First:               | Follow:
+     S      | { not, variable, ( } | { epsilon, ) }
+     S'     | { or, epsilon }      | { epsilon, ) }
+     A      | { not, variable, ( } | { or, epsilon, ) }
+     A'     | { xor, epsilon}      | { or, epsilon, ) }
+     B      | { not, variable, ( } | { xor, or, epsilon, ) }
+     B'     | { and, epsilon }     | { xor, or, epsilon, ) }
+     C      | { not, variable, ( } | { and, xor, or, epsilon, ) }
+     D      | { variable, ( }      | { and, xor, or, epsilon, ) }
